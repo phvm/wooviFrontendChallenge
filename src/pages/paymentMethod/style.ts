@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Box, Typography, Chip } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
 
 export const PageContainer = styled("main")({
   width: "100dvw",
