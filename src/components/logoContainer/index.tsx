@@ -1,10 +1,10 @@
- import { Container, Logo } from "./style"
-import wooviLogo from "../../assets/icons/wooviLogo.svg"
+import wooviLogo from "../../assets/icons/wooviLogo.svg";
+import { Logo, Container } from "./style";
 
 export default function LogoContainer() {
   return (
     <Container>
-      <Logo src={wooviLogo} alt="Woovi Logo"/>
-    </Container>  
-  )
+      <Logo src={wooviLogo} alt="Woovi Logo" />
+    </Container>
+  );
 }
