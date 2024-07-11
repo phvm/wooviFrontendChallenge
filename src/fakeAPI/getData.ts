@@ -7,6 +7,7 @@ const data: APIResponse = {
   paymentOptions: {
     pixOption: {
       installments: 1,
+      installmentValue: 30500.0,
       cashbackAmount: 300,
       cashbackPercentage: 0.03,
     },

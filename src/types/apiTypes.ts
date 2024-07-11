@@ -1,4 +1,4 @@
-interface InstallmentOption {
+export interface InstallmentOption {
   installments: number;
   installmentValue: number;
   totalAmount: number;
@@ -7,6 +7,7 @@ interface InstallmentOption {
 
 interface PixOption {
   installments: number;
+  installmentValue: number;
   cashbackAmount: number;
   cashbackPercentage: number;
 }
