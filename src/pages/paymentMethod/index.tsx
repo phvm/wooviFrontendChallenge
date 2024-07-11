@@ -1,7 +1,7 @@
 import LogoContainer from "../../components/logoContainer";
 import { getData } from "../../fakeAPI/getData";
-import PixOption from "../../components/pixOption";
-import InstallmentOption from "../../components/installmentOption";
+import CashbackInfos from "../../components/cashbackInfos";
+import DiscountInfos from "../../components/discountInfos";
 import PaymentOption from "../../components/paymentOption";
 import {
   PageContainer,
@@ -27,7 +27,7 @@ export default function PaymentMethod() {
   return (
     <PageContainer>
       <LogoContainer />
-      <PaymentText>{`${userInfo.name}, como você gostaria de pagar?`}</PaymentText>
+      <PaymentText>{`${userInfo.name}, como você quer pagar?`}</PaymentText>
       <OptionsContainer>
         <OptionChip label="Pix" />
         <PaymentOption
@@ -37,7 +37,7 @@ export default function PaymentMethod() {
           handleRadioChange={handleRadioChange}
           handleButtonClick={handleButtonClick}
         >
-          <PixOption
+          <CashbackInfos
             cashbackAmount={pixOption.cashbackAmount}
             cashbackPercentage={pixOption.cashbackPercentage}
           />
@@ -54,7 +54,7 @@ export default function PaymentMethod() {
               selectedValue={selectedValue}
               installments={installment.installments}
             >
-              <InstallmentOption
+              <DiscountInfos
                 totalAmount={installment.totalAmount}
                 discount={installment.discount}
                 key={installment.installments}
