@@ -7,6 +7,7 @@ export const OptionContainer = styled(Button)({
   width: "350px",
   padding: "12px",
   color: "#4D4D4D",
+  transition: "all 0.5s",
   ":hover": {
     cursor: "pointer",
     border: "2px solid #03D69D",
