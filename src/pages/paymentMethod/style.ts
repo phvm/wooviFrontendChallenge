@@ -11,15 +11,22 @@ export const PageContainer = styled("main")({
 export const PaymentText = styled(Typography)({
   fontSize: "1.5rem",
   fontWeight: 700,
+  marginBottom: "8px",
 });
 
-export const InstallmentsContainer = styled(Box)({
+export const OptionsContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
+  margin: "8px",
 });
 
 export const OptionChip = styled(Chip)({
-  fontWeight: 700,
-  maxWidth: "150px",
+  width: "fit-content",
   height: "20px",
+  margin: "0 0 -10px 20px",
+  padding: "0 8px",
+  fontWeight: 700,
+  zIndex: 2,
+  backgroundColor: "#E5E5E5",
+  color: "#4D4D4D",
 });
