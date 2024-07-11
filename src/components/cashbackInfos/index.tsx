@@ -6,7 +6,7 @@ interface Props {
   cashbackAmount: number;
 }
 
-export default function PixOption({
+export default function CashbackInfos({
   cashbackPercentage,
   cashbackAmount,
 }: Props) {

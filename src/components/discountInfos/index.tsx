@@ -5,7 +5,7 @@ interface Props {
   discount: number;
 }
 
-export default function InstallmentOption({ totalAmount, discount }: Props) {
+export default function DiscountInfos({ totalAmount, discount }: Props) {
   const hasDiscount: boolean = discount > 0;
 
   return (
