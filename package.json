@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/nunito": "^5.0.18",
     "@mui/material": "^5.16.0",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "prettier": "^3.3.2",

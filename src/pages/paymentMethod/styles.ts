@@ -7,4 +7,7 @@ export const PageContainer = styled.main`
   align-items: center;
 `;
 
-export const PaymentMethodText = styled.p``;
+export const PaymentMethodText = styled.p`
+  font-size: 1.5rem;
+  font-weight: 700;
+`;
