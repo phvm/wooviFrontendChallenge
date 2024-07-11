@@ -1,12 +1,12 @@
 export interface InstallmentOption {
-  installments: number;
+  installments: string;
   installmentValue: number;
   totalAmount: number;
   discount: number;
 }
 
 interface PixOption {
-  installments: number;
+  installments: string;
   installmentValue: number;
   cashbackAmount: number;
   cashbackPercentage: number;
