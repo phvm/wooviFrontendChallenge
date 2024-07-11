@@ -1,0 +1,10 @@
+#option-container{
+  border-radius: 10px;
+  border: 2px solid #e5e5e5;
+  width: 350px;
+  padding: 12px;
+}
+
+.cashback-percent{
+  color: #03d69d;
+}
