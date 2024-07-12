@@ -10,11 +10,13 @@ export default function CashbackInfos({
   cashbackPercentage,
   cashbackAmount,
 }: Props) {
-  const cashback: number = cashbackPercentage * 100;
+  const cashback: string = `${cashbackPercentage * 100}%`;
 
   return (
     <>
-      <CashbackPercent>{`Ganhe ${cashback} de Cashback`}</CashbackPercent>
+      <CashbackPercent>
+        Ganhe <b>{cashback}</b> de Cashback
+      </CashbackPercent>
       <Flag
         message={
           <CashbackFlag variant="caption">
