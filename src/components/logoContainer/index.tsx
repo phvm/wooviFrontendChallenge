@@ -1,5 +1,5 @@
 import wooviLogo from "../../assets/icons/wooviLogo.svg";
-import { Logo, Container } from "./style";
+import { Logo, Container } from "./styles";
 
 export default function LogoContainer() {
   return (
