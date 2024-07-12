@@ -11,7 +11,8 @@ import SafePayment from "../../components/safePayment";
 import {
   PageContainer,
   PaymentText,
-  OptionsContainer,
+  OptionsList,
+  SingleOption,
   OptionChip,
 } from "./styles";
 
@@ -57,7 +58,7 @@ export default function PaymentMethod() {
     <PageContainer>
       <LogoContainer />
       <PaymentText>{`${userInfo.name}, como você quer pagar?`}</PaymentText>
-      <OptionsContainer>
+      <SingleOption>
         <OptionChip label="Pix" />
         <PaymentOption
           selectedValue={selectedValue}
@@ -70,8 +71,8 @@ export default function PaymentMethod() {
             cashbackPercentage={paymentOptions.pixOption.cashbackPercentage}
           />
         </PaymentOption>
-      </OptionsContainer>
-      <OptionsContainer>
+      </SingleOption>
+      <OptionsList>
         <OptionChip label="Pix Parcelado" />
         {paymentOptions.installmentOptions.map((installment) => {
           return (
@@ -92,7 +93,7 @@ export default function PaymentMethod() {
             </PaymentOption>
           );
         })}
-      </OptionsContainer>
+      </OptionsList>
       <SafePayment />
     </PageContainer>
   );

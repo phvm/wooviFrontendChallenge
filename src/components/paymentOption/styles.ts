@@ -1,7 +1,6 @@
 import { Box, styled } from "@mui/material";
 
 export const OptionContainer = styled(Box)({
-  borderRadius: "10px",
   border: "2px solid #e5e5e5",
   width: "350px",
   padding: "16px",

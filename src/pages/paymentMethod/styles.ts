@@ -14,10 +14,25 @@ export const PaymentText = styled(Typography)({
   marginBottom: "8px",
 });
 
-export const OptionsContainer = styled(Box)({
+const OptionContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
   margin: "8px",
+});
+
+export const OptionsList = styled(OptionContainer)({
+  "& >:nth-child(2)": {
+    borderRadius: "8px 8px 0 0",
+  },
+  "& >:last-child": {
+    borderRadius: "0 0 8px 8px",
+  },
+});
+
+export const SingleOption = styled(OptionContainer)({
+  "& >:nth-child(2)": {
+    borderRadius: "8px",
+  },
 });
 
 export const OptionChip = styled(Chip)({
