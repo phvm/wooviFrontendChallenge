@@ -4,7 +4,7 @@ import { getData } from "../../fakeAPI/getData";
 
 import LogoContainer from "../../components/logoContainer";
 import CashbackInfos from "../../components/cashbackInfos";
-import DiscountInfos from "../../components/discountInfos";
+import InstallmentInfos from "../../components/installmentsInfos";
 import PaymentOption from "../../components/paymentOption";
 import SafePayment from "../../components/safePayment";
 
@@ -92,7 +92,7 @@ export default function PaymentMethod() {
               installments={installment.installments}
               key={installment.installments}
             >
-              <DiscountInfos
+              <InstallmentInfos
                 isBestInstallment={
                   bestInstallment?.installments === installment.installments
                 }

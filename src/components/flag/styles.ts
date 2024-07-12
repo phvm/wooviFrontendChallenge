@@ -2,6 +2,7 @@ import { styled, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 
 export const FlagContainer = styled(Box)({
+  marginTop: "8px",
   width: "100%",
   display: "flex",
   justifyContent: "space-between",

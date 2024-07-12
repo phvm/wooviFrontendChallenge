@@ -1,5 +1,8 @@
-import { Typography } from "@mui/material";
-import { RadioInstallmentContainer, OptionContainer } from "./styles";
+import {
+  RadioInstallmentContainer,
+  OptionContainer,
+  InstallmentsValue,
+} from "./styles";
 import SelectedRadio from "../selectedRadio";
 import { ChangeEvent } from "react";
 
@@ -34,10 +37,10 @@ export default function PaymentOption({
   return (
     <OptionContainer sx={{ ...containerStyle }}>
       <RadioInstallmentContainer>
-        <Typography>
+        <InstallmentsValue>
           <b>{`${installments}x`}</b>
           {` R$ ${installmentValue}`}
-        </Typography>
+        </InstallmentsValue>
         <SelectedRadio
           handleRadioChange={handleRadioChange}
           installmentKey={installments}

@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 
 export const OptionContainer = styled(Box)({
   border: "2px solid #e5e5e5",
@@ -19,4 +19,8 @@ export const RadioInstallmentContainer = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   width: "100%",
+});
+
+export const InstallmentsValue = styled(Typography)({
+  fontSize: "1.3rem",
 });
