@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
-import { RadioInstallmentContainer, OptionContainer } from "./style";
+import { RadioInstallmentContainer, OptionContainer } from "./styles";
 import SelectedRadio from "../selectedRadio";
+import { ChangeEvent } from "react";
 
 interface Props {
   children: JSX.Element;
@@ -16,7 +17,6 @@ export default function PaymentOption({
   installmentValue,
   selectedValue,
   handleRadioChange,
-  handleButtonClick,
 }: Props) {
   const isSelected: boolean = selectedValue === installments;
 
@@ -33,11 +33,18 @@ export default function PaymentOption({
   const containerStyle = isSelected ? isSelectedStyles : notSelectedStyles;
   return (
     <OptionContainer sx={{ ...containerStyle }}>
-      <SelectedRadio
-        handleRadioChange={handleRadioChange}
-        installmentKey={installments}
-        isSelected={isSelected}
-      />
+      <RadioInstallmentContainer>
+        <Typography>
+          <b>{`${installments}x`}</b>
+          {` R$ ${installmentValue}`}
+        </Typography>
+        <SelectedRadio
+          handleRadioChange={handleRadioChange}
+          installmentKey={installments}
+          isSelected={isSelected}
+        />
+      </RadioInstallmentContainer>
+      {children}
     </OptionContainer>
   );
 }
