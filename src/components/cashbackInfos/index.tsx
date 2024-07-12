@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
-import { CashbackPercent } from "./style";
+import { CashbackPercent, CashbackFlag } from "./styles";
+import Flag from "../flag";
 
 interface Props {
   cashbackPercentage: number;
@@ -15,7 +15,14 @@ export default function CashbackInfos({
   return (
     <>
       <CashbackPercent>{`Ganhe ${cashback} de Cashback`}</CashbackPercent>
-      <Typography>{`🤑 R$ ${cashbackAmount} de volta no seu Pix na hora`}</Typography>
+      <Flag
+        message={
+          <CashbackFlag variant="caption">
+            <b>{`🤑 R$ ${cashbackAmount} `}</b>
+            de volta no seu Pix na hora
+          </CashbackFlag>
+        }
+      />
     </>
   );
 }

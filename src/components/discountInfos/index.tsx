@@ -1,18 +1,39 @@
 import { Typography } from "@mui/material";
+import { InterestPercentage } from "./styles";
+import Flag from "../flag";
 
 interface Props {
   totalAmount: number;
   discount: number;
+  isBestInstallment?: boolean;
 }
 
-export default function DiscountInfos({ totalAmount, discount }: Props) {
-  const hasDiscount: boolean = discount > 0;
+export default function DiscountInfos({
+  totalAmount,
+  discount,
+  isBestInstallment,
+}: Props) {
+  function shouldDisplayFlag(): boolean {
+    if (isBestInstallment) {
+      return isBestInstallment && discount > 0;
+    }
+    return false;
+  }
+
+  const isFlagVisible: boolean = shouldDisplayFlag();
 
   return (
     <>
       <Typography>{`Total: R$ ${totalAmount}`}</Typography>
-      {hasDiscount && (
-        <Typography>{`-${discount * 100} de juros: Melhor opção de parcelamento`}</Typography>
+      {isFlagVisible && (
+        <Flag
+          message={
+            <InterestPercentage variant="caption">
+              <b>{`-${discount * 100}% de juros: `}</b>
+              Melhor opção de parcelamento
+            </InterestPercentage>
+          }
+        />
       )}
     </>
   );
