@@ -31,12 +31,26 @@ export default function PaymentMethod() {
 
   const [selectedValue, setSelectedValue] = useState<string>("");
 
-  function handleRadioChange(event: React.ChangeEvent<HTMLInputElement>) {
+  const bestInstallment: InstallmentOption = selectedBestInstallment();
+
+  function handleRadioChange(event: ChangeEvent<HTMLInputElement>) {
     setSelectedValue(event.target.value);
   }
 
-  function handleButtonClick(value: string) {
-    setSelectedValue(value);
+  function selectedBestInstallment() {
+    const bestOption: InstallmentOption =
+      paymentOptions.installmentOptions.reduce(
+        (
+          currentInstallment: InstallmentOption,
+          bestDiscountInstallment: InstallmentOption
+        ) => {
+          return currentInstallment.discount >= bestDiscountInstallment.discount
+            ? currentInstallment
+            : bestDiscountInstallment;
+        }
+      );
+
+    return bestOption;
   }
 
   return (
@@ -62,7 +76,6 @@ export default function PaymentMethod() {
         {paymentOptions.installmentOptions.map((installment) => {
           return (
             <PaymentOption
-              handleButtonClick={handleButtonClick}
               handleRadioChange={handleRadioChange}
               installmentValue={installment.installmentValue}
               selectedValue={selectedValue}
@@ -70,10 +83,11 @@ export default function PaymentMethod() {
               key={installment.installments}
             >
               <DiscountInfos
+                isBestInstallment={
+                  bestInstallment?.installments === installment.installments
+                }
                 discount={installment.discount}
                 totalAmount={installment.totalAmount}
-                discount={installment.discount}
-                key={installment.installments}
               />
             </PaymentOption>
           );
