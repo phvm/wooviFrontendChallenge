@@ -1,15 +1,16 @@
-import { styled } from "@mui/material";
-import { Button } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
-export const OptionButton = styled(Button)({
+export const OptionContainer = styled("button")({
   borderRadius: "10px",
   border: "2px solid #e5e5e5",
   width: "350px",
-  padding: "12px",
+  padding: "16px",
   color: "#4D4D4D",
-  transition: "all 0.5s",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  transition: "all 0.35s",
   ":hover": {
-    cursor: "pointer",
     border: "2px solid #03D69D",
     backgroundColor: "#F4FBF9",
   },
