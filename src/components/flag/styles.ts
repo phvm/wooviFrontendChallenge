@@ -6,7 +6,7 @@ export const FlagContainer = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   backgroundColor: "#133A6F",
-  borderRadius: "4px 0 0 4px",
+  borderRadius: "4px",
 });
 
 export const MessageContainer = styled(Typography)({
@@ -18,5 +18,5 @@ export const FlagTriangle = styled(Box)({
   height: 0,
   borderTop: "18px solid transparent",
   borderBottom: "18px solid transparent",
-  borderRight: "30px solid #fff",
+  borderRight: `15px solid #fff`,
 });
