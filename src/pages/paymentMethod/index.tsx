@@ -54,6 +54,13 @@ export default function PaymentMethod() {
     return bestOption;
   }
 
+  function localizeNumber(value: number) {
+    return value.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
   return (
     <PageContainer>
       <LogoContainer />
@@ -63,7 +70,9 @@ export default function PaymentMethod() {
         <PaymentOption
           selectedValue={selectedValue}
           installments={paymentOptions.pixOption.installments}
-          installmentValue={paymentOptions.pixOption.installmentValue}
+          installmentValue={localizeNumber(
+            paymentOptions.pixOption.installmentValue
+          )}
           handleRadioChange={handleRadioChange}
         >
           <CashbackInfos
@@ -78,7 +87,7 @@ export default function PaymentMethod() {
           return (
             <PaymentOption
               handleRadioChange={handleRadioChange}
-              installmentValue={installment.installmentValue}
+              installmentValue={localizeNumber(installment.installmentValue)}
               selectedValue={selectedValue}
               installments={installment.installments}
               key={installment.installments}
@@ -88,7 +97,7 @@ export default function PaymentMethod() {
                   bestInstallment?.installments === installment.installments
                 }
                 discount={installment.discount}
-                totalAmount={installment.totalAmount}
+                totalAmount={localizeNumber(installment.totalAmount)}
               />
             </PaymentOption>
           );

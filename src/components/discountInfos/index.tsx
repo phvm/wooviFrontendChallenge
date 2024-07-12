@@ -3,7 +3,7 @@ import { InterestPercentage } from "./styles";
 import Flag from "../flag";
 
 interface Props {
-  totalAmount: number;
+  totalAmount: string;
   discount: number;
   isBestInstallment?: boolean;
 }

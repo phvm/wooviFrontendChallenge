@@ -7,7 +7,7 @@ interface Props {
   children: JSX.Element;
   selectedValue: string;
   installments: string;
-  installmentValue: number;
+  installmentValue: string;
   handleRadioChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
