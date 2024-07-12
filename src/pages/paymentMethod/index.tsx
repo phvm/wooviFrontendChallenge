@@ -1,19 +1,34 @@
-import LogoContainer from "../../components/logoContainer";
+import { ChangeEvent, useState } from "react";
+
 import { getData } from "../../fakeAPI/getData";
+
+import LogoContainer from "../../components/logoContainer";
 import CashbackInfos from "../../components/cashbackInfos";
 import DiscountInfos from "../../components/discountInfos";
 import PaymentOption from "../../components/paymentOption";
+import SafePayment from "../../components/safePayment";
+
 import {
   PageContainer,
   PaymentText,
   OptionsContainer,
   OptionChip,
-} from "./style";
-import React, { useState } from "react";
+} from "./styles";
+
+import type {
+  InstallmentOption,
+  PixOption,
+  UserInfo,
+} from "../../types/apiTypes";
 
 export default function PaymentMethod() {
-  const { userInfo, paymentOptions } = getData();
-  const { pixOption, installmentOptions } = paymentOptions;
+  const data = getData();
+  const [userInfo, setUserInfo] = useState<UserInfo>(data.userInfo);
+  const [paymentOptions, setPaymentOptions] = useState<{
+    pixOption: PixOption;
+    installmentOptions: InstallmentOption[];
+  }>(data.paymentOptions);
+
   const [selectedValue, setSelectedValue] = useState<string>("");
 
   function handleRadioChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -32,20 +47,19 @@ export default function PaymentMethod() {
         <OptionChip label="Pix" />
         <PaymentOption
           selectedValue={selectedValue}
-          installments={pixOption.installments}
-          installmentValue={pixOption.installmentValue}
+          installments={paymentOptions.pixOption.installments}
+          installmentValue={paymentOptions.pixOption.installmentValue}
           handleRadioChange={handleRadioChange}
-          handleButtonClick={handleButtonClick}
         >
           <CashbackInfos
-            cashbackAmount={pixOption.cashbackAmount}
-            cashbackPercentage={pixOption.cashbackPercentage}
+            cashbackAmount={paymentOptions.pixOption.cashbackAmount}
+            cashbackPercentage={paymentOptions.pixOption.cashbackPercentage}
           />
         </PaymentOption>
       </OptionsContainer>
       <OptionsContainer>
         <OptionChip label="Pix Parcelado" />
-        {installmentOptions.map((installment) => {
+        {paymentOptions.installmentOptions.map((installment) => {
           return (
             <PaymentOption
               handleButtonClick={handleButtonClick}
@@ -53,8 +67,10 @@ export default function PaymentMethod() {
               installmentValue={installment.installmentValue}
               selectedValue={selectedValue}
               installments={installment.installments}
+              key={installment.installments}
             >
               <DiscountInfos
+                discount={installment.discount}
                 totalAmount={installment.totalAmount}
                 discount={installment.discount}
                 key={installment.installments}
@@ -63,6 +79,7 @@ export default function PaymentMethod() {
           );
         })}
       </OptionsContainer>
+      <SafePayment />
     </PageContainer>
   );
 }

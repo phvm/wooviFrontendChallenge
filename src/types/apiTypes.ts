@@ -5,14 +5,14 @@ export interface InstallmentOption {
   discount: number;
 }
 
-interface PixOption {
+export interface PixOption {
   installments: string;
   installmentValue: number;
   cashbackAmount: number;
   cashbackPercentage: number;
 }
 
-interface UserInfo {
+export interface UserInfo {
   name: string;
 }
 
