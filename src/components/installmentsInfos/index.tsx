@@ -1,5 +1,4 @@
-import { Typography } from "@mui/material";
-import { InterestPercentage } from "./styles";
+import { InterestPercentage, TotalAmout } from "./styles";
 import Flag from "../flag";
 
 interface Props {
@@ -8,23 +7,16 @@ interface Props {
   isBestInstallment?: boolean;
 }
 
-export default function DiscountInfos({
+export default function InstallmentInfos({
   totalAmount,
   discount,
   isBestInstallment,
 }: Props) {
-  function shouldDisplayFlag(): boolean {
-    if (isBestInstallment) {
-      return isBestInstallment && discount > 0;
-    }
-    return false;
-  }
-
-  const isFlagVisible: boolean = shouldDisplayFlag();
+  const isFlagVisible: boolean | undefined = isBestInstallment && discount > 0;
 
   return (
     <>
-      <Typography>{`Total: R$ ${totalAmount}`}</Typography>
+      <TotalAmout>{`Total: R$ ${totalAmount}`}</TotalAmout>
       {isFlagVisible && (
         <Flag
           message={
