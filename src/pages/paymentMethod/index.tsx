@@ -5,34 +5,26 @@ import { getData } from "../../fakeAPI/getData";
 import LogoContainer from "../../components/logoContainer";
 import CashbackInfos from "../../components/cashbackInfos";
 import InstallmentInfos from "../../components/installmentsInfos";
-import PaymentOption from "../../components/paymentOption";
+import PaymentButton from "../../components/paymentButton";
 import SafePayment from "../../components/safePayment";
+import { PageMessage } from "../../components/pageMessage";
 
-import {
-  PageContainer,
-  PaymentText,
-  OptionsList,
-  SingleOption,
-  OptionChip,
-} from "./styles";
+import { PageContainer, OptionsList, SingleOption, OptionChip } from "./styles";
 
-import type {
-  InstallmentOption,
-  PixOption,
-  UserInfo,
-} from "../../types/apiTypes";
+import type { UserInfo, PaymentOption } from "../../types/apiTypes";
+import { Button } from "@mui/material";
 
 export default function PaymentMethod() {
   const data = getData();
   const [userInfo, setUserInfo] = useState<UserInfo>(data.userInfo);
   const [paymentOptions, setPaymentOptions] = useState<{
-    pixOption: PixOption;
-    installmentOptions: InstallmentOption[];
+    pixOption: PaymentOption;
+    installmentOptions: PaymentOption[];
   }>(data.paymentOptions);
 
   const [selectedValue, setSelectedValue] = useState<string>("");
 
-  const bestInstallment: InstallmentOption = selectedBestInstallment();
+  const bestInstallment: PaymentOption = selectedBestInstallment();
 
   function handleRadioChange(event: ChangeEvent<HTMLInputElement>) {
     setSelectedValue(event.target.value);
@@ -43,72 +35,65 @@ export default function PaymentMethod() {
   }
 
   function selectedBestInstallment() {
-    const bestOption: InstallmentOption =
-      paymentOptions.installmentOptions.reduce(
-        (
-          currentInstallment: InstallmentOption,
-          bestDiscountInstallment: InstallmentOption
-        ) => {
-          return currentInstallment.discount >= bestDiscountInstallment.discount
-            ? currentInstallment
-            : bestDiscountInstallment;
-        }
-      );
+    const bestOption: PaymentOption = paymentOptions.installmentOptions.reduce(
+      (
+        currentInstallment: PaymentOption,
+        bestDiscountInstallment: PaymentOption
+      ) => {
+        return currentInstallment.refound >= bestDiscountInstallment.refound
+          ? currentInstallment
+          : bestDiscountInstallment;
+      }
+    );
 
     return bestOption;
-  }
-
-  function localizeNumber(value: number) {
-    return value.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
   }
 
   return (
     <PageContainer>
       <LogoContainer />
-      <PaymentText>{`${userInfo.name}, como você quer pagar?`}</PaymentText>
+      <PageMessage>{`${userInfo.name}, como você quer pagar?`}</PageMessage>
       <SingleOption>
         <OptionChip label="Pix" />
-        <PaymentOption
+        <PaymentButton
           handleOptionClick={handleOptionClick}
           selectedValue={selectedValue}
           installments={paymentOptions.pixOption.installments}
-          installmentValue={localizeNumber(
-            paymentOptions.pixOption.installmentValue
-          )}
+          installmentValue={paymentOptions.pixOption.amount}
           handleRadioChange={handleRadioChange}
         >
           <CashbackInfos
-            cashbackAmount={paymentOptions.pixOption.cashbackAmount}
-            cashbackPercentage={paymentOptions.pixOption.cashbackPercentage}
+            cashbackAmount={
+              paymentOptions.pixOption.amount * paymentOptions.pixOption.refound
+            }
+            cashbackPercentage={paymentOptions.pixOption.refound}
           />
-        </PaymentOption>
+        </PaymentButton>
       </SingleOption>
       <OptionsList>
         <OptionChip label="Pix Parcelado" />
         {paymentOptions.installmentOptions.map((installment) => {
           return (
-            <PaymentOption
+            <PaymentButton
+              key={installment.installments}
               handleOptionClick={handleOptionClick}
               handleRadioChange={handleRadioChange}
-              installmentValue={localizeNumber(installment.installmentValue)}
+              installmentValue={installment.amount / installment.installments}
               selectedValue={selectedValue}
               installments={installment.installments}
-              key={installment.installments}
             >
               <InstallmentInfos
                 isBestInstallment={
                   bestInstallment?.installments === installment.installments
                 }
-                discount={installment.discount}
-                totalAmount={localizeNumber(installment.totalAmount)}
+                discount={installment.refound}
+                totalAmount={installment.amount}
               />
-            </PaymentOption>
+            </PaymentButton>
           );
         })}
       </OptionsList>
+      <Button type="button" disableRipple />
       <SafePayment />
     </PageContainer>
   );

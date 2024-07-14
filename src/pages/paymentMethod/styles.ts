@@ -1,17 +1,11 @@
 import { styled } from "@mui/system";
-import { Box, Chip, Typography } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 
 export const PageContainer = styled("main")({
   width: "100dvw",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-});
-
-export const PaymentText = styled(Typography)({
-  fontSize: "1.5rem",
-  fontWeight: 700,
-  marginBottom: "8px",
 });
 
 const OptionContainer = styled(Box)({

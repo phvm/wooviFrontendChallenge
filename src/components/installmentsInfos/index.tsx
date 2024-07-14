@@ -1,8 +1,9 @@
 import { InterestPercentage, TotalAmout } from "./styles";
+import { localizeNumber } from "../../utils/localizeNumber";
 import Flag from "../flag";
 
 interface Props {
-  totalAmount: string;
+  totalAmount: number;
   discount: number;
   isBestInstallment?: boolean;
 }
@@ -12,11 +13,12 @@ export default function InstallmentInfos({
   discount,
   isBestInstallment,
 }: Props) {
+  const localizedAmout: string = localizeNumber(totalAmount);
   const isFlagVisible: boolean | undefined = isBestInstallment && discount > 0;
 
   return (
     <>
-      <TotalAmout>{`Total: R$ ${totalAmount}`}</TotalAmout>
+      <TotalAmout>{`Total: R$ ${localizedAmout}`}</TotalAmout>
       {isFlagVisible && (
         <Flag
           message={

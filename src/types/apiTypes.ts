@@ -1,15 +1,7 @@
-export interface InstallmentOption {
-  installments: string;
-  installmentValue: number;
-  totalAmount: number;
-  discount: number;
-}
-
-export interface PixOption {
-  installments: string;
-  installmentValue: number;
-  cashbackAmount: number;
-  cashbackPercentage: number;
+export interface PaymentOption {
+  amount: number;
+  refound: number;
+  installments: number;
 }
 
 export interface UserInfo {
@@ -19,7 +11,7 @@ export interface UserInfo {
 export interface APIResponse {
   userInfo: UserInfo;
   paymentOptions: {
-    pixOption: PixOption;
-    installmentOptions: InstallmentOption[];
+    pixOption: PaymentOption;
+    installmentOptions: PaymentOption[];
   };
 }
