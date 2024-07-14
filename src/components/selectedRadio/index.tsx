@@ -3,15 +3,9 @@ import { Radio } from "@mui/material";
 
 interface Props {
   isSelected: boolean;
-  installmentKey: string;
-  handleRadioChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SelectedRadio({
-  isSelected,
-  installmentKey,
-  handleRadioChange,
-}: Props) {
+export default function SelectedRadio({ isSelected }: Props) {
   return (
     <Radio
       sx={{
@@ -31,8 +25,6 @@ export default function SelectedRadio({
       }
       icon={<></>}
       checked={isSelected}
-      value={installmentKey}
-      onChange={handleRadioChange}
     />
   );
 }

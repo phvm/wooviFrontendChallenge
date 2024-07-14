@@ -4,16 +4,14 @@ import {
   InstallmentsValue,
 } from "./styles";
 import SelectedRadio from "../selectedRadio";
-import { ChangeEvent } from "react";
 import { localizeNumber } from "../../utils/localizeNumber";
+import { PaymentOption } from "../../types/apiTypes";
 
 interface Props {
+  option: PaymentOption;
   children: JSX.Element;
-  selectedValue: string;
-  installments: number;
-  installmentValue: number;
-  handleRadioChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleOptionClick: (installment: string) => void;
+  selectedValue: PaymentOption;
+  handleOptionClick: (paymentOption: PaymentOption) => void;
 }
 
 function getContainerStyles(isSelected: boolean) {
@@ -30,33 +28,30 @@ function getContainerStyles(isSelected: boolean) {
 }
 
 export default function PaymentButton({
+  option,
   children,
-  installments,
-  installmentValue,
   selectedValue,
-  handleRadioChange,
   handleOptionClick,
 }: Props) {
-  const installmentsNumber: string = installments.toString();
-  const isSelected: boolean = selectedValue === installmentsNumber;
+  const installmentsNumber: string = option.installments.toString();
+  const isSelected: boolean =
+    selectedValue.installments.toString() === installmentsNumber;
   const containerStyle = getContainerStyles(isSelected);
-  const localizedInstallment: string = localizeNumber(installmentValue);
+  const localizedInstallment: string = localizeNumber(
+    option.amount / option.installments
+  );
 
   return (
     <OptionContainer
       sx={{ ...containerStyle }}
-      onClick={() => handleOptionClick(installmentsNumber)}
+      onClick={() => handleOptionClick(option)}
     >
       <RadioInstallmentContainer>
         <InstallmentsValue>
-          <b>{`${installments}x`}</b>
+          <b>{`${option.installments}x`}</b>
           {` R$ ${localizedInstallment}`}
         </InstallmentsValue>
-        <SelectedRadio
-          handleRadioChange={handleRadioChange}
-          installmentKey={installmentsNumber}
-          isSelected={isSelected}
-        />
+        <SelectedRadio isSelected={isSelected} />
       </RadioInstallmentContainer>
       {children}
     </OptionContainer>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useContext, useState } from "react";
 
 import { getData } from "../../fakeAPI/getData";
 
@@ -8,30 +8,50 @@ import InstallmentInfos from "../../components/installmentsInfos";
 import PaymentButton from "../../components/paymentButton";
 import SafePayment from "../../components/safePayment";
 import { PageMessage } from "../../components/pageMessage";
+import { NavigationButton } from "../../components/navigationButton";
+
+import { UserContext } from "../../utils/contexts/UserContext";
 
 import { PageContainer, OptionsList, SingleOption, OptionChip } from "./styles";
 
-import type { UserInfo, PaymentOption } from "../../types/apiTypes";
-import { Button } from "@mui/material";
+import type { PaymentOption } from "../../types/apiTypes";
+import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
 export default function PaymentMethod() {
   const data = getData();
-  const [userInfo, setUserInfo] = useState<UserInfo>(data.userInfo);
-  const [paymentOptions, setPaymentOptions] = useState<{
+
+  const { userInfo, handleUserContextChange } = useContext(UserContext);
+  const { handlePaymentContextChange } = useContext(PaymentContext);
+
+  const paymentOptions: {
     pixOption: PaymentOption;
     installmentOptions: PaymentOption[];
-  }>(data.paymentOptions);
+  } = data.paymentOptions;
 
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<PaymentOption>({
+    amount: 0,
+    installments: 0,
+    refound: 0,
+  });
 
   const bestInstallment: PaymentOption = selectedBestInstallment();
 
-  function handleRadioChange(event: ChangeEvent<HTMLInputElement>) {
-    setSelectedValue(event.target.value);
+  function handleOptionClick(selectedOption: PaymentOption) {
+    setSelectedValue(selectedOption);
   }
 
-  function handleOptionClick(installment: string) {
-    setSelectedValue(installment);
+  function validadeSelectedOption(): boolean {
+    return (
+      selectedValue === undefined ||
+      selectedValue === null ||
+      selectedValue.installments === 0
+    );
+  }
+
+  function submiteSelectedOption() {
+    if (validadeSelectedOption()) {
+      handlePaymentContextChange(selectedValue);
+    }
   }
 
   function selectedBestInstallment() {
@@ -58,9 +78,7 @@ export default function PaymentMethod() {
         <PaymentButton
           handleOptionClick={handleOptionClick}
           selectedValue={selectedValue}
-          installments={paymentOptions.pixOption.installments}
-          installmentValue={paymentOptions.pixOption.amount}
-          handleRadioChange={handleRadioChange}
+          option={paymentOptions.pixOption}
         >
           <CashbackInfos
             cashbackAmount={
@@ -77,10 +95,8 @@ export default function PaymentMethod() {
             <PaymentButton
               key={installment.installments}
               handleOptionClick={handleOptionClick}
-              handleRadioChange={handleRadioChange}
-              installmentValue={installment.amount / installment.installments}
               selectedValue={selectedValue}
-              installments={installment.installments}
+              option={installment}
             >
               <InstallmentInfos
                 isBestInstallment={
@@ -93,7 +109,10 @@ export default function PaymentMethod() {
           );
         })}
       </OptionsList>
-      <Button type="button" disableRipple />
+      <NavigationButton
+        content="Realizar pagamento"
+        handleClick={() => handleUserContextChange({ name: "Pedro" })}
+      />
       <SafePayment />
     </PageContainer>
   );
