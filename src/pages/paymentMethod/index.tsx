@@ -38,6 +38,10 @@ export default function PaymentMethod() {
     setSelectedValue(event.target.value);
   }
 
+  function handleOptionClick(installment: string) {
+    setSelectedValue(installment);
+  }
+
   function selectedBestInstallment() {
     const bestOption: InstallmentOption =
       paymentOptions.installmentOptions.reduce(
@@ -68,6 +72,7 @@ export default function PaymentMethod() {
       <SingleOption>
         <OptionChip label="Pix" />
         <PaymentOption
+          handleOptionClick={handleOptionClick}
           selectedValue={selectedValue}
           installments={paymentOptions.pixOption.installments}
           installmentValue={localizeNumber(
@@ -86,6 +91,7 @@ export default function PaymentMethod() {
         {paymentOptions.installmentOptions.map((installment) => {
           return (
             <PaymentOption
+              handleOptionClick={handleOptionClick}
               handleRadioChange={handleRadioChange}
               installmentValue={localizeNumber(installment.installmentValue)}
               selectedValue={selectedValue}

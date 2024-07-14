@@ -12,6 +12,7 @@ export const OptionContainer = styled(Box)({
   ":hover": {
     border: "2px solid #03D69D",
     backgroundColor: "#F4FBF9",
+    cursor: "pointer",
   },
 });
 

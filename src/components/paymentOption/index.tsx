@@ -12,6 +12,7 @@ interface Props {
   installments: string;
   installmentValue: string;
   handleRadioChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleOptionClick: (installment: string) => void;
 }
 
 export default function PaymentOption({
@@ -20,6 +21,7 @@ export default function PaymentOption({
   installmentValue,
   selectedValue,
   handleRadioChange,
+  handleOptionClick,
 }: Props) {
   const isSelected: boolean = selectedValue === installments;
 
@@ -35,7 +37,10 @@ export default function PaymentOption({
 
   const containerStyle = isSelected ? isSelectedStyles : notSelectedStyles;
   return (
-    <OptionContainer sx={{ ...containerStyle }}>
+    <OptionContainer
+      sx={{ ...containerStyle }}
+      onClick={() => handleOptionClick(installments)}
+    >
       <RadioInstallmentContainer>
         <InstallmentsValue>
           <b>{`${installments}x`}</b>
