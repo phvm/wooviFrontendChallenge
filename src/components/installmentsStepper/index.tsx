@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
@@ -16,37 +16,26 @@ import {
 type Step = { number: number; value: number; isPaid: boolean };
 
 export default function InstallmentsStepper() {
-  const stepsTest: Step[] = [
-    {
-      value: 10,
-      isPaid: false,
-      number: 1,
-    },
-    {
-      value: 10,
-      isPaid: false,
-      number: 2,
-    },
-  ];
   const { selectedPayment } = useContext(PaymentContext);
 
-  const steps: Step[] = [];
+  const paymentSteps: Step[] = [];
   for (let i = 1; i <= selectedPayment.installments; i++) {
-    steps.push({
+    paymentSteps.push({
       number: i,
       isPaid: false,
       value: selectedPayment.amount / selectedPayment.installments,
     });
   }
 
-  const [paymentSteps, setPaymentSteps] = useState<Step[]>(stepsTest);
-
   const activeStep = paymentSteps.find((paymentStep: Step) => {
     return !paymentStep.isPaid;
   });
 
   return (
-    <PaymentStepper activeStep={activeStep?.number} orientation="vertical">
+    <PaymentStepper
+      activeStep={activeStep ? activeStep.number - 1 : 0}
+      orientation="vertical"
+    >
       {paymentSteps.map((paymentStep: Step) => (
         <Step>
           <StepLabel>
