@@ -2,6 +2,10 @@ body, html {
   margin: 0;
 }
 
+:root {
+  --toastify-color-success: #03D69D;
+}
+
 *{
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

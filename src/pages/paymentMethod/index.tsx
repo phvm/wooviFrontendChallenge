@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import { getData } from "../../fakeAPI/getData";
 
@@ -7,32 +8,35 @@ import CashbackInfos from "../../components/cashbackInfos";
 import InstallmentInfos from "../../components/installmentsInfos";
 import PaymentButton from "../../components/paymentButton";
 import SafePayment from "../../components/safePayment";
-import { PageMessage } from "../../components/pageMessage";
+import PageMessage from "../../components/pageMessage";
 import { NavigationButton } from "../../components/navigationButton";
 
 import { UserContext } from "../../utils/contexts/UserContext";
+import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
 import { PageContainer, OptionsList, SingleOption, OptionChip } from "./styles";
 
 import type { PaymentOption } from "../../types/apiTypes";
-import { PaymentContext } from "../../utils/contexts/PaymentContext";
+
+import Links from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentMethod() {
   const data = getData();
 
-  const { userInfo, handleUserContextChange } = useContext(UserContext);
+  const { userInfo } = useContext(UserContext);
   const { handlePaymentContextChange } = useContext(PaymentContext);
-
-  const paymentOptions: {
-    pixOption: PaymentOption;
-    installmentOptions: PaymentOption[];
-  } = data.paymentOptions;
-
   const [selectedValue, setSelectedValue] = useState<PaymentOption>({
     amount: 0,
     installments: 0,
     refound: 0,
   });
+  const navigate = useNavigate();
+
+  const paymentOptions: {
+    pixOption: PaymentOption;
+    installmentOptions: PaymentOption[];
+  } = data.paymentOptions;
 
   const bestInstallment: PaymentOption = selectedBestInstallment();
 
@@ -41,7 +45,7 @@ export default function PaymentMethod() {
   }
 
   function validadeSelectedOption(): boolean {
-    return (
+    return !(
       selectedValue === undefined ||
       selectedValue === null ||
       selectedValue.installments === 0
@@ -51,7 +55,9 @@ export default function PaymentMethod() {
   function submiteSelectedOption() {
     if (validadeSelectedOption()) {
       handlePaymentContextChange(selectedValue);
+      return navigate(Links.pixCredtCard);
     }
+    return toast.error("Por favor, selecione uma opção de pagamento");
   }
 
   function selectedBestInstallment() {
@@ -111,7 +117,7 @@ export default function PaymentMethod() {
       </OptionsList>
       <NavigationButton
         content="Realizar pagamento"
-        handleClick={() => handleUserContextChange({ name: "Pedro" })}
+        handleClick={() => submiteSelectedOption()}
       />
       <SafePayment />
     </PageContainer>

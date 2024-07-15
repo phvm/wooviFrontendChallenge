@@ -11,7 +11,7 @@ interface UserContext {
 }
 
 export const UserContext = createContext<UserContext>({
-  userInfo: { name: "" },
+  userInfo: { name: "", cpf: "" },
   handleUserContextChange: () => {},
 });
 
@@ -20,7 +20,7 @@ export default function UserContextProvider({ children }: Props) {
     setUserInfo({ ...userInfos });
   }
 
-  const [userInfo, setUserInfo] = useState({ name: "" });
+  const [userInfo, setUserInfo] = useState<UserInfo>({ name: "", cpf: "" });
   return (
     <UserContext.Provider value={{ userInfo, handleUserContextChange }}>
       {children}
