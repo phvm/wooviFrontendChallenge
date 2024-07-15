@@ -4,6 +4,13 @@ export interface PaymentOption {
   installments: number;
 }
 
+export interface SelectedPayment {
+  amount: number;
+  refound: number;
+  installments: number;
+  identifier: string;
+}
+
 export interface UserInfo {
   name: string;
   cpf: string;

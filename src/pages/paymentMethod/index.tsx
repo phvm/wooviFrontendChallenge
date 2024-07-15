@@ -65,7 +65,10 @@ export default function PaymentMethod() {
 
   function submiteSelectedOption() {
     if (validadeSelectedOption()) {
-      handlePaymentContextChange(selectedValue);
+      handlePaymentContextChange({
+        ...selectedValue,
+        identifier: "2c1b951f356c4680b13ba1c9fc889c47",
+      });
       return navigate(Links.pixCredtCard);
     }
     return toast.error("Por favor, selecione uma opção de pagamento");

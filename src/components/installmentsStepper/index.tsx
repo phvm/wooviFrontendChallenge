@@ -2,37 +2,65 @@ import { useContext, useState } from "react";
 
 import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
-import { ListStepper } from "./styles";
+import { Step, StepLabel } from "@mui/material";
 
-import { Step, StepContent, StepLabel } from "@mui/material";
+import { localizeNumber } from "../../utils/localizeNumber";
 
-interface Props {}
+import {
+  LabelContainer,
+  PaymentParcel,
+  PaymentValue,
+  PaymentStepper,
+} from "./styles";
 
-type Step = { number: number; value: number; isDone: boolean };
+type Step = { number: number; value: number; isPaid: boolean };
 
 export default function InstallmentsStepper() {
-  const { paymentOption } = useContext(PaymentContext);
+  const stepsTest: Step[] = [
+    {
+      value: 10,
+      isPaid: false,
+      number: 1,
+    },
+    {
+      value: 10,
+      isPaid: false,
+      number: 2,
+    },
+  ];
+  const { selectedPayment } = useContext(PaymentContext);
 
   const steps: Step[] = [];
-  for (let i = 1; i <= paymentOption.installments; i++) {
+  for (let i = 1; i <= selectedPayment.installments; i++) {
     steps.push({
       number: i,
-      isDone: false,
-      value: paymentOption.amount / paymentOption.installments,
+      isPaid: false,
+      value: selectedPayment.amount / selectedPayment.installments,
     });
   }
 
-  const [paymentSteps, setPaymentSteps] = useState<Step[]>(steps);
+  const [paymentSteps, setPaymentSteps] = useState<Step[]>(stepsTest);
+
+  const activeStep = paymentSteps.find((paymentStep: Step) => {
+    return !paymentStep.isPaid;
+  });
 
   return (
-    <ListStepper orientation="vertical" alternativeLabel>
+    <PaymentStepper activeStep={activeStep?.number} orientation="vertical">
       {paymentSteps.map((paymentStep: Step) => (
-        <Step key={paymentStep.number}>
-          <StepLabel></StepLabel>
-          {`x ${paymentStep.value}`}
-          <StepContent></StepContent>
+        <Step>
+          <StepLabel>
+            <LabelContainer>
+              <PaymentParcel>
+                {paymentStep.number === 1
+                  ? `${paymentStep.number}ª entrada no Pix`
+                  : `${paymentStep.number}ª no cartão`}
+              </PaymentParcel>
+              <PaymentValue>{`R$ ${localizeNumber(paymentStep.value)}`}</PaymentValue>
+            </LabelContainer>
+          </StepLabel>
         </Step>
       ))}
-    </ListStepper>
+    </PaymentStepper>
   );
 }
