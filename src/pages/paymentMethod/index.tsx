@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { getData } from "../../fakeAPI/getData";
@@ -23,15 +23,26 @@ import { useNavigate } from "react-router-dom";
 
 export default function PaymentMethod() {
   const data = getData();
-
+  const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
+
+  useEffect(() => {
+    if (
+      userInfo.name === "" ||
+      userInfo.name === null ||
+      userInfo.name === undefined
+    ) {
+      toast.error("Dados ainda não informados", { autoClose: 2000 });
+      return navigate(Links.home);
+    }
+  });
+
   const { handlePaymentContextChange } = useContext(PaymentContext);
   const [selectedValue, setSelectedValue] = useState<PaymentOption>({
     amount: 0,
     installments: 0,
     refound: 0,
   });
-  const navigate = useNavigate();
 
   const paymentOptions: {
     pixOption: PaymentOption;

@@ -6,6 +6,7 @@ export interface PaymentOption {
 
 export interface UserInfo {
   name: string;
+  cpf: string;
 }
 
 export interface APIResponse {
