@@ -89,7 +89,7 @@ export default function PaymentMethod() {
   return (
     <PageContainer>
       <LogoContainer />
-      <PageMessage>{`${userInfo.name}, como você quer pagar?`}</PageMessage>
+      <PageMessage>{`${userInfo.name.split(" ")[0]}, como você quer pagar?`}</PageMessage>
       <SingleOption>
         <OptionChip label="Pix" />
         <PaymentButton
