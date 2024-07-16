@@ -4,8 +4,6 @@ import LogoContainer from "../../components/logoContainer";
 import PageMessage from "../../components/pageMessage";
 import SafePayment from "../../components/safePayment";
 import PaymentInfos from "../../components/paymentInfos";
-import { NavigationButton } from "../../components/navigationButton";
-
 import { UserContext } from "../../utils/contexts/UserContext";
 import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
@@ -30,7 +28,9 @@ export default function PixCreditCardPage() {
 
   const navigate = useNavigate();
 
-  const [qrcode, setQrcode] = useState<string>("");
+  const [qrcode, setQrcode] = useState<string>("codigo do qr code!");
+  const { paymentInstallments, handleInstallmentContextChange } =
+    useContext(PaymentContext);
 
   const localizedInstallments: string = localizeNumber(
     selectedPayment.amount / selectedPayment.installments
@@ -39,6 +39,17 @@ export default function PixCreditCardPage() {
   function copyQRCode() {
     navigator.clipboard.writeText(qrcode);
     toast.info("Código do Pix copiado!", { autoClose: 3000 });
+  }
+
+  function handleButtonClick() {
+    copyQRCode();
+    const payments = [...paymentInstallments];
+    payments[0].isPaid = true;
+    handleInstallmentContextChange(payments);
+    toast.info("Você será redirecionado em alguns instantes", {
+      autoClose: 3000,
+    });
+    setTimeout(() => navigate(Links.creditCardInstallments), 4000);
   }
 
   return (
@@ -56,7 +67,7 @@ export default function PixCreditCardPage() {
           variant="contained"
           endIcon={<FileCopyIcon />}
           onClick={() => {
-            copyQRCode();
+            handleButtonClick();
           }}
         >
           Clique para copiar o QR Code
@@ -64,10 +75,6 @@ export default function PixCreditCardPage() {
         <PaymentInfos
           paymentIdentifier={selectedPayment.identifier}
           paymentAmount={selectedPayment.amount}
-        />
-        <NavigationButton
-          content="Pagament no cartão"
-          handleClick={() => navigate(Links.creditCardInstallments)}
         />
         <SafePayment />
       </PageContainer>

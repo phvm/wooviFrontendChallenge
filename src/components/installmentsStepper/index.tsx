@@ -6,6 +6,8 @@ import { Step, StepLabel } from "@mui/material";
 
 import { localizeNumber } from "../../utils/localizeNumber";
 
+import StepperIcons from "../stepperIcons";
+
 import {
   LabelContainer,
   PaymentParcel,
@@ -16,18 +18,9 @@ import {
 type Step = { number: number; value: number; isPaid: boolean };
 
 export default function InstallmentsStepper() {
-  const { selectedPayment } = useContext(PaymentContext);
+  const { paymentInstallments } = useContext(PaymentContext);
 
-  const paymentSteps: Step[] = [];
-  for (let i = 1; i <= selectedPayment.installments; i++) {
-    paymentSteps.push({
-      number: i,
-      isPaid: false,
-      value: selectedPayment.amount / selectedPayment.installments,
-    });
-  }
-
-  const activeStep = paymentSteps.find((paymentStep: Step) => {
+  const activeStep = paymentInstallments.find((paymentStep: Step) => {
     return !paymentStep.isPaid;
   });
 
@@ -36,9 +29,9 @@ export default function InstallmentsStepper() {
       activeStep={activeStep ? activeStep.number - 1 : 0}
       orientation="vertical"
     >
-      {paymentSteps.map((paymentStep: Step) => (
+      {paymentInstallments.map((paymentStep: Step) => (
         <Step>
-          <StepLabel>
+          <StepLabel StepIconComponent={StepperIcons}>
             <LabelContainer>
               <PaymentParcel>
                 {paymentStep.number === 1
