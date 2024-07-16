@@ -26,11 +26,11 @@ export default function InstallmentsStepper() {
 
   return (
     <PaymentStepper
-      activeStep={activeStep ? activeStep.number - 1 : 0}
+      activeStep={activeStep ? activeStep.number - 1 : Infinity}
       orientation="vertical"
     >
       {paymentInstallments.map((paymentStep: Step) => (
-        <Step>
+        <Step key={paymentStep.number}>
           <StepLabel StepIconComponent={StepperIcons}>
             <LabelContainer>
               <PaymentParcel>
@@ -38,7 +38,7 @@ export default function InstallmentsStepper() {
                   ? `${paymentStep.number}ª entrada no Pix`
                   : `${paymentStep.number}ª no cartão`}
               </PaymentParcel>
-              <PaymentValue>{`R$ ${localizeNumber(paymentStep.value)}`}</PaymentValue>
+              <PaymentValue>{`${localizeNumber(paymentStep.value)}`}</PaymentValue>
             </LabelContainer>
           </StepLabel>
         </Step>

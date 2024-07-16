@@ -9,18 +9,14 @@ import { PaymentContext } from "../../utils/contexts/PaymentContext";
 
 import qrcodeplaceholder from "../../assets/qrcode.svg";
 import { localizeNumber } from "../../utils/localizeNumber";
-import {
-  PageContainer,
-  QRCodeContainer,
-  CopyButton,
-  QRCodeImg,
-} from "./styles";
+import { PageContainer, QRCodeContainer, QRCodeImg } from "./styles";
 
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 import Links from "../../utils/constants";
+import ActionButton from "../../components/actionButton";
 
 export default function PixCreditCardPage() {
   const { userInfo } = useContext(UserContext);
@@ -58,20 +54,16 @@ export default function PixCreditCardPage() {
         <LogoContainer />
       </header>
       <PageContainer>
-        <PageMessage>{`${userInfo.name}, pague a entrada de R$ ${localizedInstallments} pelo Pix`}</PageMessage>
+        <PageMessage>{`${userInfo.name}, pague a entrada de ${localizedInstallments} pelo Pix`}</PageMessage>
         <QRCodeContainer>
           <QRCodeImg src={qrcodeplaceholder} alt="QRCode para pagamento" />
         </QRCodeContainer>
-        <CopyButton
-          value={qrcode}
-          variant="contained"
+        <ActionButton
+          buttonValue={qrcode}
+          content="Clique para copiar o QR Code"
+          handleButtonClick={() => handleButtonClick()}
           endIcon={<FileCopyIcon />}
-          onClick={() => {
-            handleButtonClick();
-          }}
-        >
-          Clique para copiar o QR Code
-        </CopyButton>
+        />
         <PaymentInfos
           paymentIdentifier={selectedPayment.identifier}
           paymentAmount={selectedPayment.amount}

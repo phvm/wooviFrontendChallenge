@@ -1,4 +1,4 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
 export const PageContainer = styled("main")({
   width: "100dvw",
@@ -20,13 +20,4 @@ export const QRCodeContainer = styled(Box)({
 
 export const QRCodeImg = styled("img")({
   minWidth: "300px",
-});
-
-export const CopyButton = styled(Button)({
-  backgroundColor: "#133A6F",
-  borderRadius: "8px",
-  margin: "1.2rem",
-  ":hover": {
-    backgroundColor: "#0F2A4F",
-  },
 });

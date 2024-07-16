@@ -82,7 +82,6 @@ export default function CreditCardForm({ userInfo }: Props) {
 
   return (
     <>
-      {" "}
       <TextInput
         helperText="Nome completo é obrigatório"
         error={isEmptyData.isEmptyName}

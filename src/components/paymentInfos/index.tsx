@@ -45,7 +45,7 @@ export default function PaymentInfos({
       <ContentDivider />
       <DividerContent>
         <Typography variant="caption">CET: 0,5%</Typography>
-        <Typography variant="caption">{`Total: R$ ${localizeNumber(paymentAmount)}`}</Typography>
+        <Typography variant="caption">{`Total: ${localizeNumber(paymentAmount)}`}</Typography>
       </DividerContent>
       <ContentDivider />
       <DividerContent>

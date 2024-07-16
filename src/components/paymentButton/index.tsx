@@ -49,7 +49,7 @@ export default function PaymentButton({
       <RadioInstallmentContainer>
         <InstallmentsValue>
           <b>{`${option.installments}x`}</b>
-          {` R$ ${localizedInstallment}`}
+          {` ${localizedInstallment}`}
         </InstallmentsValue>
         <SelectedRadio isSelected={isSelected} />
       </RadioInstallmentContainer>

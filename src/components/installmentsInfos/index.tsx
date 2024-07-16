@@ -18,7 +18,7 @@ export default function InstallmentInfos({
 
   return (
     <>
-      <TotalAmout>{`Total: R$ ${localizedAmout}`}</TotalAmout>
+      <TotalAmout>{`Total: ${localizedAmout}`}</TotalAmout>
       {isFlagVisible && (
         <Flag
           message={
